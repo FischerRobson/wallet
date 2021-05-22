@@ -7,7 +7,7 @@ const MainHeader: React.FC = () => {
       <h1>toggle</h1>
       <Profile>
         <Welcome>Olá</Welcome>
-        <UserName>Robson Fischer 2</UserName>
+        <UserName>Casada</UserName>
       </Profile>
     </Container>
   );
