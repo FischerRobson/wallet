@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ContentHeader from "../../components/ContentHeader";
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 import SelectInput from "../../components/SelectInput";
 import { Container, Content, Filters } from "./styles";
 
-const List: React.FC = () => {
+interface IListRouteParams {
+  match: {
+    params: {
+      type: string; //definido no routes
+    };
+  };
+}
+
+const List: React.FC<IListRouteParams> = ({ match }) => {
+  const { type } = match.params;
+
+  const listType = useMemo(() => {
+    return type === "entry"
+      ? { title: "Entradas", lineColor: "#50fa7b" }
+      : { title: "Saídas", lineColor: "#ff5555" };
+  }, [type]);
+
   const months = [
     { value: 7, label: "Julho" },
     { value: 8, label: "Agosto" },
@@ -19,14 +35,18 @@ const List: React.FC = () => {
 
   return (
     <Container>
-      <ContentHeader title="Entradas" lineColor="#fff">
+      <ContentHeader title={listType.title} lineColor={listType.lineColor}>
         <SelectInput options={months} />
         <SelectInput options={years} />
       </ContentHeader>
 
       <Filters>
-        <button type="button" className="tag-filter tag-filter-recurrent">Recorrentes</button>
-        <button type="button" className="tag-filter tag-filter-eventual">Eventuais</button>
+        <button type="button" className="tag-filter tag-filter-recurrent">
+          Recorrentes
+        </button>
+        <button type="button" className="tag-filter tag-filter-eventual">
+          Eventuais
+        </button>
       </Filters>
 
       <Content>

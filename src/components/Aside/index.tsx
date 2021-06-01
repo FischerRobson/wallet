@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Header,
@@ -14,8 +14,11 @@ import {
   MdArrowDownward,
   MdExitToApp,
 } from "react-icons/md";
+import { useHistory } from "react-router-dom";
 
 const Aside: React.FC = () => {
+  const history = useHistory();
+
   return (
     <Container>
       <Header>
@@ -24,16 +27,15 @@ const Aside: React.FC = () => {
       </Header>
 
       <MenuContainer>
-        <MenuItemLink>
-          {" "}
+        <MenuItemLink onClick={() => history.push("/")}>
           <MdDashboard />
           Dashboard
         </MenuItemLink>
-        <MenuItemLink>
+        <MenuItemLink onClick={() => history.push("/list/entry")}>
           <MdArrowUpward />
           Entradas
         </MenuItemLink>
-        <MenuItemLink>
+        <MenuItemLink onClick={() => history.push("/list/exit")}>
           <MdArrowDownward />
           Saídas
         </MenuItemLink>
