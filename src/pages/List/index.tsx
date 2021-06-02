@@ -6,6 +6,8 @@ import { Container, Content, Filters } from "./styles";
 
 import gains from "../../repositories/gains";
 import expenses from "../../repositories/expenses";
+import formatCurrency from "../../utils/formatCurrency";
+import formatDate from "../../utils/formatDate";
 
 interface IListRouteParams {
   match: {
@@ -38,9 +40,9 @@ const List: React.FC<IListRouteParams> = ({ match }) => {
     const resp = listType.data.map((item) => {
       return {
         description: item.description,
-        amountFormatted: item.amount,
+        amountFormatted: formatCurrency(Number(item.amount)),
         frequency: item.frequency,
-        dateFormatted: item.date,
+        dateFormatted: formatDate(item.date),
         tagColor: item.frequency === "eventual" ? "#8be9fd" : "#ff5555",
       };
     });
