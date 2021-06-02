@@ -30,6 +30,11 @@ export const Container = styled.li`
     flex-direction: column;
     justify-content: space-between;
     padding-left: 10px;
+
+    span {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
   }
 
   
