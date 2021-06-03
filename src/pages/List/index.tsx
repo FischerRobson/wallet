@@ -44,6 +44,11 @@ const List: React.FC<IListRouteParams> = ({ match }) => {
   const [selectedMonth, setSelectedMonth] = useState<string>(newDateMonth);
   const [selectedYear, setSelectedYear] = useState<string>(newDateYear);
 
+  const [selectedFrequency, setSelectedFrequency] = useState([
+    "recorrente",
+    "eventual",
+  ]);
+
   const { type } = match.params;
 
   const listType = useMemo(() => {
@@ -55,12 +60,12 @@ const List: React.FC<IListRouteParams> = ({ match }) => {
   const filterDateByMonthAndYear = (
     list: Array<IPrevData>
   ): Array<IPrevData> => {
-    const filteredDate = list.filter((item) => {
+    const filteredData = list.filter((item) => {
       const dateMonth = format(new Date(item.date), "MM");
       const dateYear = format(new Date(item.date), "yyyy");
       return dateMonth === selectedMonth && dateYear === selectedYear;
     });
-    return filteredDate;
+    return filteredData;
   };
 
   const formatData = (list: Array<IPrevData>): Array<IData> => {
@@ -76,11 +81,45 @@ const List: React.FC<IListRouteParams> = ({ match }) => {
     return formatedData;
   };
 
+  const filterByFrequency = (list: Array<IPrevData>): Array<IPrevData> => {
+    const filteredData = list.filter((e) =>
+      selectedFrequency.includes(e.frequency)
+    );
+    return filteredData;
+  };
+
   useEffect(() => {
-    const filteredDate = filterDateByMonthAndYear(listType.data);
-    const resp = formatData(filteredDate);
+    const filteredDataByDate = filterDateByMonthAndYear(listType.data);
+    const filteredDataByFrequency = filterByFrequency(filteredDataByDate);
+    const resp = formatData(filteredDataByFrequency);
     setData(resp);
-  }, [type, selectedYear, selectedMonth]);
+  }, [type, selectedYear, selectedMonth, selectedFrequency]);
+
+  const handleFrequencyClick = (frequency: string) => {
+    const filteredFrequency = selectedFrequency.filter((e) => e !== frequency);
+    if (filteredFrequency.length === selectedFrequency.length) {
+      setSelectedFrequency([...selectedFrequency, frequency]);
+    } else {
+      setSelectedFrequency(filteredFrequency);
+    }
+  };
+
+  //gera os anos dinamicamente
+  // const years = useMemo(() => {
+  //   let uniqueYears: string[] = [];
+  //   listType.data.forEach((item) => {
+  //     const date = format(new Date(item.date), "yyyy");
+  //     if (!uniqueYears.includes(date)) {
+  //       uniqueYears.push(date);
+  //     }
+  //   });
+  //   return uniqueYears.map((year) => {
+  //     return {
+  //       value: year,
+  //       label: year,
+  //     };
+  //   });
+  // }, []);
 
   return (
     <Container>
@@ -98,10 +137,22 @@ const List: React.FC<IListRouteParams> = ({ match }) => {
       </ContentHeader>
 
       <Filters>
-        <button type="button" className="tag-filter tag-filter-recurrent">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-recurrent ${
+            selectedFrequency.includes("recorrente") && "tag-active"
+          }`}
+          onClick={() => handleFrequencyClick("recorrente")}
+        >
           Recorrentes
         </button>
-        <button type="button" className="tag-filter tag-filter-eventual">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-eventual ${
+            selectedFrequency.includes("eventual") && "tag-active"
+          }`}
+          onClick={() => handleFrequencyClick("eventual")}
+        >
           Eventuais
         </button>
       </Filters>
