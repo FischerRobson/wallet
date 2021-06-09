@@ -26,7 +26,11 @@ interface ITheme {
 const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 export const ThemeProvider: React.FC = ({ children }) => {
-  const themeTitle = Cookie.get("theme") === "light" ? light : dracula;
+
+  const themeDracula = "dracula";
+  const themeLight = "light";
+
+  const themeTitle = Cookie.get("theme") === themeLight ? light : dracula;
   const [theme, setTheme] = useState<ITheme>(themeTitle);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
   }, [theme]);
 
   const toggleTheme = () => {
-    if (theme.title === "dracula") {
+    if (theme.title === themeDracula) {
       setTheme(light);
     } else {
       setTheme(dracula);
