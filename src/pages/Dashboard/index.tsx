@@ -9,8 +9,6 @@ const Dashboard: React.FC = () => {
     { value: "b", label: "b" },
   ];
 
-  //just a test
-
   return (
     <Container>
       <ContentHeader title="Dashboard" lineColor="#fff">
