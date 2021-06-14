@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
+import WalletBox from "../../components/WalletBox";
+import MessageBox from "../../components/MessageBox";
+
 import { Container, Content } from "./styles";
 import { months } from "../../repositories/moths";
 import { years } from "../../repositories/years";
+
 import { format } from "date-fns";
 
+import happyImg from "../../assets/happy.svg";
+import sadImg from "../../assets/sad.svg";
+import anxiousImg from "../../assets/anxious.png";
 import gains from "../../repositories/gains";
 import expenses from "../../repositories/expenses";
+import { useMemo } from "react";
 
-import WalletBox from "../../components/WalletBox";
+interface IPrevData {
+  description: string;
+  amount: string;
+  frequency: string;
+  date: string;
+}
 
 const Dashboard: React.FC = () => {
   const newDateMonth = format(new Date(), "MM");
@@ -17,6 +30,60 @@ const Dashboard: React.FC = () => {
 
   const [selectedMonth, setSelectedMonth] = useState<string>(newDateMonth);
   const [selectedYear, setSelectedYear] = useState<string>(newDateYear);
+
+  const filterDateByMonthAndYear = (
+    list: Array<IPrevData>
+  ): Array<IPrevData> => {
+    const filteredData = list.filter((item) => {
+      const dateMonth = format(new Date(item.date), "MM");
+      const dateYear = format(new Date(item.date), "yyyy");
+      return dateMonth === selectedMonth && dateYear === selectedYear;
+    });
+    return filteredData;
+  };
+
+  const calcAmount = (total: number, item: IPrevData) => {
+    return total + Number(item.amount);
+  };
+
+  const totalExpenses = useMemo(() => {
+    const data = filterDateByMonthAndYear(expenses);
+    return data.reduce(calcAmount, 0);
+  }, [selectedMonth, selectedYear]);
+
+  const totalGains = useMemo(() => {
+    const data = filterDateByMonthAndYear(gains);
+    return data.reduce(calcAmount, 0);
+  }, [selectedMonth, selectedYear]);
+
+  const totalBalance = useMemo(() => {
+    return totalGains - totalExpenses;
+  }, [totalExpenses, totalGains]);
+
+  const message = useMemo(() => {
+    if (totalBalance > 0) {
+      return {
+        title: "Muito bem!",
+        description: "Sua carteira está positiva",
+        footerText: "Continue assim e considere investir seu saldo",
+        icon: happyImg,
+      };
+    } else if (totalBalance < 0) {
+      return {
+        title: "Que triste!",
+        description: "Nesse mês você gastou mais do que deveria",
+        footerText: "Considere rever seus gastos",
+        icon: sadImg,
+      };
+    } else {
+      return {
+        title: "Ufa, essa foi na trave!",
+        description: "Seus gastos e ganhos foram equivalentes",
+        footerText: "Busque formas de diminuir seus gastos",
+        icon: anxiousImg,
+      };
+    }
+  }, [totalBalance]);
 
   return (
     <Container>
@@ -35,7 +102,7 @@ const Dashboard: React.FC = () => {
       <Content>
         <WalletBox
           title="Saldo"
-          amount={1560}
+          amount={totalBalance}
           footerLabel="atualizado com base nas últimas movimentações"
           icon="dolar"
           color="#3B5998"
@@ -43,7 +110,7 @@ const Dashboard: React.FC = () => {
 
         <WalletBox
           title="Entradas"
-          amount={2450.0}
+          amount={totalGains}
           footerLabel="atualizado com base nas últimas movimentações"
           icon="arrow-up"
           color="#03BB85"
@@ -51,10 +118,17 @@ const Dashboard: React.FC = () => {
 
         <WalletBox
           title="Saídas"
-          amount={950.0}
+          amount={totalExpenses}
           footerLabel="atualizado com base nas últimas movimentações"
           icon="arrow-down"
           color="#ff5555"
+        />
+
+        <MessageBox
+          title={message.title}
+          description={message.description}
+          footerText={message.footerText}
+          icon={message.icon}
         />
       </Content>
     </Container>
