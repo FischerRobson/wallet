@@ -15,7 +15,7 @@ import {
   MdExitToApp,
 } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import {FaWallet} from 'react-icons/fa'
+import { FaWallet } from "react-icons/fa";
 
 const Aside: React.FC = () => {
   const history = useHistory();
@@ -24,7 +24,7 @@ const Aside: React.FC = () => {
     <Container>
       <Header>
         {/* <LogoImg src={logoImg} alt="Minha Carteira Logo" /> */}
-        <FaWallet size={24} style={{marginRight: "15px"}}/>
+        <FaWallet size={24} style={{ marginRight: "15px" }} />
         <Title>Minha Carteira</Title>
       </Header>
 
