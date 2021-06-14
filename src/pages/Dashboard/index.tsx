@@ -35,10 +35,26 @@ const Dashboard: React.FC = () => {
       <Content>
         <WalletBox
           title="Saldo"
-          amount={450.0}
+          amount={1560}
           footerLabel="atualizado com base nas últimas movimentações"
           icon="dolar"
-          color="red"
+          color="#3B5998"
+        />
+
+        <WalletBox
+          title="Entradas"
+          amount={2450.0}
+          footerLabel="atualizado com base nas últimas movimentações"
+          icon="arrow-up"
+          color="#03BB85"
+        />
+
+        <WalletBox
+          title="Saídas"
+          amount={950.0}
+          footerLabel="atualizado com base nas últimas movimentações"
+          icon="arrow-down"
+          color="#ff5555"
         />
       </Content>
     </Container>
