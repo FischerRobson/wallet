@@ -61,6 +61,19 @@ const Dashboard: React.FC = () => {
     return totalGains - totalExpenses;
   }, [totalExpenses, totalGains]);
 
+  const relationExpensesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+    const gainsPercent = ((totalGains / total) * 100).toFixed(1);
+    const expensesPercent = ((totalExpenses / total) * 100).toFixed(1);
+
+    console.log(gainsPercent);
+
+    return [
+      { name: "Entradas", value: Number(gainsPercent), color: "#03BB85" },
+      { name: "Saídas", value: Number(expensesPercent), color: "#ff5555" },
+    ];
+  }, [totalGains, totalExpenses]);
+
   const message = useMemo(() => {
     if (totalBalance > 0) {
       return {
@@ -132,7 +145,7 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
 
-        <PieChart />
+        <PieChart data={relationExpensesVersusGains} />
       </Content>
     </Container>
   );
