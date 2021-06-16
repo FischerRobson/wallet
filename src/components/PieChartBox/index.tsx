@@ -7,7 +7,8 @@ import {
   Legend,
 } from "./styles";
 
-import { PieChart as Chart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import CountUp from "react-countup";
 
 interface ILegend {
   name: string;
@@ -19,7 +20,7 @@ interface IPieChartProps {
   data: ILegend[];
 }
 
-const PieChart: React.FC<IPieChartProps> = ({ data }) => (
+const PieChartBox: React.FC<IPieChartProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Relação</h2>
@@ -27,7 +28,14 @@ const PieChart: React.FC<IPieChartProps> = ({ data }) => (
         {data.map((legend, index) => {
           return (
             <Legend key={index} color={legend.color}>
-              <div>{legend.value + "%"}</div>
+              <div>
+                <CountUp
+                  end={legend.value}
+                  suffix="%"
+                  decimals={1}
+                  preserveValue={true}
+                />
+              </div>
               <span>{legend.name}</span>
             </Legend>
           );
@@ -37,15 +45,15 @@ const PieChart: React.FC<IPieChartProps> = ({ data }) => (
 
     <SideRight>
       <ResponsiveContainer>
-        <Chart >
-          <Pie labelLine={false} dataKey="value">
+        <PieChart>
+          <Pie labelLine={false} data={data} dataKey="value">
             {data.map((indicator) => {
               return <Cell key={indicator.name} fill={indicator.color} />;
             })}
           </Pie>
-        </Chart>
+        </PieChart>
       </ResponsiveContainer>
     </SideRight>
   </Container>
 );
-export default PieChart;
+export default PieChartBox;
