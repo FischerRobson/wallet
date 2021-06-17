@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Logo, Form, FormTitle } from "./styles";
 import LogoImg from "../../assets/logo.svg";
 
@@ -6,6 +6,8 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 const SignIn: React.FC = () => {
+  document.title = "Wallet | Sign in";
+
   return (
     <Container>
       <Logo>
@@ -17,7 +19,12 @@ const SignIn: React.FC = () => {
         <FormTitle>Entrar</FormTitle>
 
         <Input type="text" placeholder="Digite seu nome de usuário" required />
-        <Input type="password" placeholder="Digite sua senha" required />
+        <Input
+          type="password"
+          isPassword={true}
+          placeholder="Digite sua senha"
+          required
+        />
 
         <Button type="submit">Acessar</Button>
       </Form>
