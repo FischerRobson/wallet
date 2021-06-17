@@ -66,8 +66,6 @@ const Dashboard: React.FC = () => {
     const gainsPercent = ((totalGains / total) * 100).toFixed(1);
     const expensesPercent = ((totalExpenses / total) * 100).toFixed(1);
 
-    console.log(gainsPercent);
-
     return [
       { name: "Entradas", value: Number(gainsPercent), color: "#03BB85" },
       { name: "Saídas", value: Number(expensesPercent), color: "#ff5555" },
