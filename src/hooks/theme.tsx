@@ -30,8 +30,8 @@ export const ThemeProvider: React.FC = ({ children }) => {
   const themeDracula = "dracula";
   const themeLight = "light";
 
-  const themeTitle = Cookie.get("theme") === themeLight ? light : dracula;
-  const [theme, setTheme] = useState<ITheme>(themeTitle);
+  const storagedTheme = Cookie.get("theme") === themeLight ? light : dracula;
+  const [theme, setTheme] = useState<ITheme>(storagedTheme);
 
   useEffect(() => {
     Cookie.set("theme", theme.title);
