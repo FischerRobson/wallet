@@ -17,8 +17,16 @@ import {
 import { useHistory } from "react-router-dom";
 import { FaWallet } from "react-icons/fa";
 
+import { useAuth } from "../../hooks/auth";
+
 const Aside: React.FC = () => {
   const history = useHistory();
+
+  const { signOut } = useAuth();
+
+  const handleSignOut = () => {
+    signOut();
+  };
 
   return (
     <Container>
@@ -41,7 +49,7 @@ const Aside: React.FC = () => {
           <MdArrowDownward />
           Saídas
         </MenuItemLink>
-        <MenuItemLink>
+        <MenuItemLink onClick={() => handleSignOut()}>
           <MdExitToApp />
           Log Out
         </MenuItemLink>

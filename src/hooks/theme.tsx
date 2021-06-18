@@ -52,7 +52,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
   );
 };
 
-export function useTheme(): IThemeContext {
+export const useTheme = (): IThemeContext => {
   const context = useContext(ThemeContext);
   return context;
 }
