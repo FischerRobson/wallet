@@ -1,5 +1,4 @@
 import React from "react";
-import SelectInput from "../SelectInput";
 import { Container, Title, Controllers } from "./styles";
 
 interface IContentHeader {

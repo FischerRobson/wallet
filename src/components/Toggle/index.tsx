@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, ToggleLabel, SwitchTheme } from "./styles";
-import Switch from "react-switch";
 import { useTheme } from "../../hooks/theme";
 
 const Toggle: React.FC = () => {

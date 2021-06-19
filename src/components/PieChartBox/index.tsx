@@ -31,8 +31,8 @@ const PieChartBox: React.FC<IPieChartProps> = ({ data }) => (
               <div>
                 <CountUp
                   end={legend.value}
-                  suffix="%"
-                  decimals={1}
+                  //suffix="%"
+                  //decimals={1}
                   preserveValue={true}
                 />
               </div>

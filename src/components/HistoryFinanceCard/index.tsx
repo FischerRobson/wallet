@@ -1,5 +1,4 @@
 import React from "react";
-import ContentHeader from "../../components/ContentHeader";
 import { Container, Tag } from "./styles";
 
 interface IHistoryFinanceCardProps {

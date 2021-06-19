@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
     const date = new Date(Number(selectedYear), index); //gera uma data com o mês informado
 
     let lastSixMonths = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 1; i <= 6; i++) {
       //gera os ultimos 6 meses com base no mês informado
       const result = format(
         sub(date, {

@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   Header,
-  LogoImg,
   Title,
   MenuContainer,
   MenuItemLink,
 } from "./styles";
-import logoImg from "../../assets/logo.svg";
+
 import {
   MdDashboard,
   MdArrowUpward,
