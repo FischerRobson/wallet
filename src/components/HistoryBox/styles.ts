@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 340px;
   margin: 10px 0;
   background: ${(props) => props.theme.colors.tertiary};
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.secondary};
 
   border-radius: 7px;
   padding: 10px 20px;
