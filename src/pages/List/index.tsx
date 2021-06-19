@@ -8,7 +8,7 @@ import expenses from "../../repositories/expenses";
 import formatCurrency from "../../utils/formatCurrency";
 import formatDate from "../../utils/formatDate";
 import { format } from "date-fns";
-import { months } from "../../repositories/moths";
+import { months } from "../../repositories/months";
 import { years } from "../../repositories/years";
 
 interface IListRouteParams {
